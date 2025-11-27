@@ -150,8 +150,13 @@ Spring Boot Actuator provides monitoring and management endpoints:
 
 - **Health**: `http://localhost:8080/actuator/health`
 - **Info**: `http://localhost:8080/actuator/info`
-- **Metrics**: `http://localhost:8080/actuator/metrics`
-- **Prometheus**: `http://localhost:8080/actuator/prometheus`
+
+**Note**: By default, only `health` and `info` endpoints are exposed for security reasons. To expose additional endpoints like `metrics` or `prometheus` in production, ensure proper authentication and authorization are configured.
+
+To expose more endpoints (for development only), add to `application.properties`:
+```properties
+management.endpoints.web.exposure.include=health,info,metrics,prometheus
+```
 
 ## Avro Schema
 
