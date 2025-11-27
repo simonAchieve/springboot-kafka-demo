@@ -37,11 +37,11 @@ public class AvroDeserializer<T extends SpecificRecordBase> implements Deseriali
         }
 
         try {
-            T result = targetType.newInstance();
+            T result = targetType.getDeclaredConstructor().newInstance();
             BinaryDecoder decoder = DecoderFactory.get().binaryDecoder(data, null);
             DatumReader<T> datumReader = new SpecificDatumReader<>(result.getSchema());
             return datumReader.read(null, decoder);
-        } catch (IOException | InstantiationException | IllegalAccessException e) {
+        } catch (Exception e) {
             logger.error("Error deserializing Avro message", e);
             throw new RuntimeException("Error deserializing Avro message", e);
         }
